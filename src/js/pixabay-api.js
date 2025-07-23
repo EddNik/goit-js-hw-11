@@ -4,7 +4,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 import '../css/styles.css';
 
 const iziToastOption = {
-  timeout: 100000,
+  timeout: 10000,
   theme: 'dark',
   messageColor: 'white',
   position: 'topRight',
@@ -23,7 +23,6 @@ export default function getImagesByQuery(query) {
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: 'true',
-        timeout: 2000,
         per_page: 21,
       },
     })
