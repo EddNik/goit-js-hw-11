@@ -2,10 +2,10 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import '../css/styles.css';
-// import '../img/bi_x-octagon.svg';
+import { PIXABAY_KEY } from '../../env';
 
 const iziToastOption = {
-  timeout: 10000,
+  timeout: 100000,
   theme: 'dark',
   messageColor: 'white',
   position: 'topRight',
@@ -15,29 +15,20 @@ const iziToastOption = {
   backgroundColor: '#ef4040',
 };
 
-export default function getImagesByQuery(query) {
-  axios
+export default function getImagesByQuery(query, apiKey) {
+  return axios
     .get('https://pixabay.com/api/', {
       params: {
-        key: '51407519-422ec1314326ee48566ae1dd4',
+        key: PIXABAY_KEY,
         q: query,
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: 'true',
-        // category: 'animals',
-        // min_width: minWidth,
-        // min_height: minHeight,
+        timeout: 2000,
+        per_page: 21,
       },
     })
     .then(response => {
-      //   if (response.statusText !== 'OK') {
-      //     throw new Error(response.status);
-      //   }
-      //   console.log(response.status);
-      //   console.log(response.statusText);
-      //   console.log(response.headers);
-      //   console.log(response.config);
-      //   console.log(response.request);
       if (
         Array.isArray(response.data.hits) &&
         response.data.hits.length === 0
@@ -46,12 +37,10 @@ export default function getImagesByQuery(query) {
           'Sorry, there are no images matching your search query. Please try again!';
         iziToast.show(iziToastOption);
       }
-      console.log(response.data);
-      //   return response.data;
+      return response.data.hits;
     })
     .catch(error => {
-      console.error('Request failed:', error);
+      console.log(error);
+      return error.message;
     });
 }
-
-// getImagesByQuery('morning');
