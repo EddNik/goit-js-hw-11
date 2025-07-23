@@ -2,7 +2,6 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import '../css/styles.css';
-import { PIXABAY_KEY } from '../../env';
 
 const iziToastOption = {
   timeout: 100000,
@@ -15,11 +14,11 @@ const iziToastOption = {
   backgroundColor: '#ef4040',
 };
 
-export default function getImagesByQuery(query, apiKey) {
+export default function getImagesByQuery(query) {
   return axios
     .get('https://pixabay.com/api/', {
       params: {
-        key: PIXABAY_KEY,
+        key: '51407519-422ec1314326ee48566ae1dd4',
         q: query,
         image_type: 'photo',
         orientation: 'horizontal',

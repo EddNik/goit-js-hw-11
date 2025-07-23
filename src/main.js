@@ -24,5 +24,4 @@ form.addEventListener('submit', event => {
             ${error}`
       );
     });
-  console.log(gallery);
 });
