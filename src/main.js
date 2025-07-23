@@ -1,5 +1,4 @@
 import getImagesByQuery from './js/pixabay-api';
-
 import { createGallery } from './js/render-functions';
 
 const form = document.querySelector('.form');
