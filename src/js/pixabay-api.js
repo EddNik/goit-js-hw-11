@@ -2,16 +2,17 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import '../css/styles.css';
+import { hideLoader } from './render-functions';
 
-const iziToastOption = {
-  timeout: 10000,
+export const iziToastOption = {
+  timeout: 5000,
   theme: 'dark',
   messageColor: 'white',
-  position: 'topRight',
   icon: 'custom-svg-icon',
   iconColor: '#FFFFFF',
   closeOnClick: true,
   backgroundColor: '#ef4040',
+  position: 'topRight',
 };
 
 export default function getImagesByQuery(query) {
@@ -39,6 +40,10 @@ export default function getImagesByQuery(query) {
     })
     .catch(error => {
       console.log(error);
-      return error.message;
+      iziToastOption.message = `${error.message} : ${error.code}`;
+      iziToast.error(iziToastOption);
+      setTimeout(() => {
+        hideLoader();
+      }, 500);
     });
 }

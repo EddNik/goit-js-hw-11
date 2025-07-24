@@ -1,31 +1,42 @@
 import getImagesByQuery from './js/pixabay-api';
+import { iziToastOption } from './js/pixabay-api';
 import {
   createGallery,
-  clearGallery,
-  showLoader,
   hideLoader,
+  showLoader,
+  clearGallery,
 } from './js/render-functions';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('.form');
+
 form.addEventListener('submit', event => {
   event.preventDefault();
   clearGallery();
-
-  const query = form.elements['search-text']?.value || '';
-  //second method with underscore   query = form.elements.search_text.value;
+  const query = form.elements['search-text'].value.trim();
   showLoader();
-  getImagesByQuery(query)
-    .then(response => {
-      if (response == 'Network Error') {
-        return;
-      }
-      createGallery(response);
+  if (query === '') {
+    iziToastOption.message =
+      'Sorry, this name images is empty. Please try again!';
+    iziToastOption.position = 'topRight';
+    iziToast.show(iziToastOption);
+    setTimeout(() => {
       hideLoader();
-    })
-    .catch(error => {
-      console.log(
-        `Another possible errors except network,
-            ${error}`
-      );
-    });
+    }, 500);
+  } else {
+    getImagesByQuery(query)
+      .then(response => {
+        createGallery(response);
+        hideLoader();
+      })
+      .catch(error => {
+        iziToastOption.message = `${error}`;
+        iziToastOption.timeout = 10000;
+        iziToast.show(iziToastOption);
+        setTimeout(() => {
+          hideLoader();
+        }, 500);
+      });
+  }
 });

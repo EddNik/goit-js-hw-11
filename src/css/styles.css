@@ -8,14 +8,14 @@
 @import url('./reset.css');
 @import url('./base.css');
 
-.iziToast-capsule {
+/* .iziToast-capsule {
   display: flex;
   align-items: center;
-  justify-content: end;
-  position: absolute;
+  /* justify-content: end; */
+/* position: absolute;
   top: 36px;
-  right: 36px;
-}
+  right: 36px; 
+} */
 
 .iziToast {
   border-bottom: 2px solid #ffbebe;
@@ -23,6 +23,8 @@
   padding: 20px;
   width: 432px;
   height: 88px;
+  top: 36px;
+  right: 36px;
 }
 
 .custom-svg-icon {
@@ -85,6 +87,7 @@ button:hover {
   gap: 24px;
   align-items: center;
   justify-content: center;
+  margin-bottom: 36px;
 }
 
 .gallery-item {
